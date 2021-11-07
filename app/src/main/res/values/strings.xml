@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Legend Caffe</string>
+    <string name="host_ip">Host IP</string>
+    <string name="tab_text_1">Đặt Hàng</string>
+    <string name="tab_text_2">Cài Đặt</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_order">Đặt Hàng</string>
+    <string name="btn_connect">Kiểm Tra Kết Nối</string>
+    <string name="ip_address_lable">IP Máy CHủ:</string>
+    <string name="can_not_connect_server_label">Không Thể Kết Nối Server</string>
+</resources>
