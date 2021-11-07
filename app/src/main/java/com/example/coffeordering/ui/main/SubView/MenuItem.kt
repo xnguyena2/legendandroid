@@ -28,7 +28,7 @@ class MenuItem (context: Context, val productName: String, val orderProduct: (St
         this.id = generateViewId()
         text = "-"
         layoutParams = LinearLayout.LayoutParams(
-            0,
+            100,
             ViewGroup.LayoutParams.WRAP_CONTENT,
         )
         setOnClickListener{
