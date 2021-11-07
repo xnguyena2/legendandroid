@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.example.coffeordering.databinding.ActivityMenuBinding
 import com.example.coffeordering.ui.main.Adapter.GridTableAdapter
 import com.example.coffeordering.ui.main.Adapter.MenuAdapter
+import com.example.coffeordering.ui.main.Config.Order
 import com.example.coffeordering.ui.main.Socket.MySocket
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,8 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val tableName = intent.getStringExtra(ARG_TABLE_NAME)
+
         val gridTableAdapter = intent.getStringArrayExtra(ARG_TABLE_NO)?.let {
             MenuAdapter(this, it){ productName, no->
                 Log.d("Product click", "product: ${productName}, NO: ${no}")
@@ -47,7 +50,7 @@ class MenuActivity : AppCompatActivity() {
                     val order = orderProduct.filter { kv ->
                         kv.value > 0
                     }
-                    MySocket.sendMSD(Gson().toJson(order), {
+                    MySocket.sendMSD(Gson().toJson(tableName?.let { it1 -> Order(it1, order) }), {
                         finish();
                     }, {
                         GlobalScope.launch {
@@ -72,6 +75,7 @@ class MenuActivity : AppCompatActivity() {
         // TODO: Rename parameter arguments, choose names that match
         // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
         private const val ARG_TABLE_NO = "tableno"
+        private const val ARG_TABLE_NAME = "tablename"
 
         /**
          * Use this factory method to create a new instance of
@@ -82,10 +86,11 @@ class MenuActivity : AppCompatActivity() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun start(context: Context, nenu: Array<String>) {
+        fun start(context: Context, tableName: String, nenu: Array<String>) {
 
             val intent = Intent(context, MenuActivity::class.java).apply {
                 putExtra(ARG_TABLE_NO, nenu)
+                putExtra(ARG_TABLE_NAME, tableName)
             }
             context.startActivity(intent)
 
