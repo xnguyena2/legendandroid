@@ -50,7 +50,16 @@ class MenuActivity : AppCompatActivity() {
                     val order = orderProduct.filter { kv ->
                         kv.value > 0
                     }
-                    MySocket.sendMSD(Gson().toJson(tableName?.let { it1 -> Order(it1, order) }), {
+                    val orderItem = tableName?.let { it1 -> Order(it1, order) }
+                    val orderTxt = Gson().toJson(orderItem)
+
+                    val orderBuilder = StringBuilder()
+                    val orderFormatTxt = order.map { kv->
+                        "${kv.key}(${kv.value})"
+                    }.joinToString(separator = ",  ", prefix="[ ", postfix=" ]")
+                    orderBuilder.append("--->$tableName \t:")
+                    orderBuilder.append(orderFormatTxt)
+                    MySocket.sendMSD(orderBuilder.toString(), {
                         finish();
                     }, {
                         GlobalScope.launch {

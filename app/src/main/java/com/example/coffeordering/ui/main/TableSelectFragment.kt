@@ -48,7 +48,7 @@ class TableSelectFragment : Fragment() {
 
         val gridTableAdapter = GridTableAdapter(this.requireContext(), "Bàn", 0){
             Log.d("Table click", "table: ${it}")
-            MenuActivity.start(this.requireContext(), "Bàn: ${it+1}", AppValue.coffeConfig.listProduct)
+            MenuActivity.start(this.requireContext(), "Ban So: ${it+1}", AppValue.coffeConfig.listProduct)
         }
         binding.listTable.adapter = gridTableAdapter
         AppValue.ObserverTableChagne { no->
